@@ -31,7 +31,7 @@ class ImageTest < MiniTest::Unit::TestCase
 	end 
 
 	def test_vertical_colour_segment_method_works
-		@image.vertical!(2,3,4,"W")
+		# @image.vertical!(2,3,4,"W")
 		assert_equal "OOOOO\nOOOOO\nOWOOO\nOWOOO\nOOOOO\nOOOOO", @image.to_image
 		
 	end
