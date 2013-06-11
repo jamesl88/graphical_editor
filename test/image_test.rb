@@ -38,9 +38,17 @@ class ImageTest < MiniTest::Unit::TestCase
 		assert_equal "OOOOO\nOOZZO\nOOOOO\nOOOOO\nOOOOO\nOOOOO", @image.to_image
 	end	
 
-	def test_fill
+	def test_fill  
 		@image.vertical!(3, 1, 6, "Z")
 		@image.fill!(2, 3, "J")
 		assert_equal "JJZOO\nJJZOO\nJJZOO\nJJZOO\nJJZOO\nJJZOO", @image.to_image
+		@image.clear!
+		@image.horizontal!(1, 5, 3, "Z")
+		@image.fill!(1, 1, "J")
+		assert_equal "JJJJJ\nJJJJJ\nZZZZZ\nOOOOO\nOOOOO\nOOOOO", @image.to_image
 	end
+
+	# def test_adjacent_array
+	# 	assert @image.adjacent
+	# end
 end
