@@ -29,11 +29,18 @@ class ImageTest < MiniTest::Unit::TestCase
 	end 
 
 	def test_colour_vertical_segments
-		@image.vertical!(2,3,5,"W")
+		@image.vertical!(2 ,3, 5,"W")
 		assert_equal "OOOOO\nOOOOO\nOWOOO\nOWOOO\nOWOOO\nOOOOO", @image.to_image
 	end
 
 	def test_colour_horizontal_segments
-
+		@image.horizontal!(3, 4, 2, "Z")
+		assert_equal "OOOOO\nOOZZO\nOOOOO\nOOOOO\nOOOOO\nOOOOO", @image.to_image
 	end	
+
+	def test_fill
+		@image.vertical!(3, 1, 6, "Z")
+		@image.fill!(2, 3, "J")
+		assert_equal "JJZOO\nJJZOO\nJJZOO\nJJZOO\nJJZOO\nJJZOO", @image.to_image
+	end
 end

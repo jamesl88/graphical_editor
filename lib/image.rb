@@ -1,30 +1,48 @@
 class Image
 
-	attr_accessor :width, :height, :pixel
+	attr_accessor :width, :height, :pixels
 
 	def initialize(n, m)
-		@width = n
-		@height = m
-		clear!
+		@width, @height = n, m; clear!
 	end
 
-	def clear!
-		array = Array.new(@width * @height)
-		@pixel = array.map { |index| index = "O" }.each_slice(@width).to_a
-		@pixel
+	def clear!		
+		@pixels = Array.new(@height) { Array.new(@width) { "O"} }
 	end
 
-	def colour!(x, y, c)
-		@pixel[y-1][x-1] = c
+	def colour!(x, y, colour)
+		@pixels[y-1][x-1] = colour
 	end
 
 	def to_image
-		@pixel.map(&:join).join("\n")
+		@pixels.map(&:join).join("\n")
 	end
 
-	def vertical!(x, y1, y2, c)
+	def vertical!(x, y1, y2, colour)
 		column = (x-1) % @width
-		((y1-1)..(y2-1)).each { |x| @pixel[x][column] = c }
+		((y1-1)..(y2-1)).each { |x| @pixels[x][column] = colour }
 	end
 
+	def horizontal!(x1, x2, y, colour)
+		row = y - 1
+		((x1-1)..(x2-1)).each { |x| @pixels[row][x] = colour }
+	end
+
+	def fill!(x, y, colour)
+		original_colour = @pixels[y-1][x-1]
+		recursive_fill(x, y, colour, original_colour)		
+	end
+
+	private
+
+	def recursive_fill(x, y, colour, original_colour)
+		adjacent = [ [x-1, y-1], [x , y-1], [x+1, y-1], [x+1, y], [x+1, y+1], [x, y+1], [x-1, y+1], [x-1, y] ]
+		
+		@pixels[y-1][x-1] = colour
+
+		adjacent.each do |pixel|
+			recursive_fill(pixel[0], pixel[1], colour, original_colour) if colour == original_colour 
+			# recursive_fill(x, y, colour, original_colour) if pixel == original_colour 
+		end	   
+	end	
 end
