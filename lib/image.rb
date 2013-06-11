@@ -14,7 +14,7 @@ class Image
 		@pixel
 	end
 
-	def colour!(x,y,c)
+	def colour!(x, y, c)
 		@pixel[y-1][x-1] = c
 	end
 
@@ -22,16 +22,9 @@ class Image
 		@pixel.map(&:join).join("\n")
 	end
 
-	def vertical!(x,y1,y2,c)
-		# column = x % @width 
-
-		# ((y1-1)..(y2-1)).each do |x| 
-		# 	@pixel[x][column] = c
-		# end	
-		# y2 = y1 + @width
-		# @pixel[(y1-1)..(y2-1)][column] = c
-
-		# @pixel.inject(y2) {|indexes,offset| }
-		# @pixel
+	def vertical!(x, y1, y2, c)
+		column = (x-1) % @width
+		((y1-1)..(y2-1)).each { |x| @pixel[x][column] = c }
 	end
+
 end
