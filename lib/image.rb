@@ -34,9 +34,18 @@ class Image
 	end
 
 	def recursive_fill(x, y, colour, original_colour)
-		# [-1,0,1].repeated_permutation(2).to_a.map |pixel| []
+		# [-1,0,1].repeated_permutation(2).to_a
 
-		adjacent = [ [x-1, y-1], [x , y-1], [x+1, y-1], [x+1, y], [x+1, y+1], [x, y+1], [x-1, y+1], [x-1, y] ]
+		adjacent = [ [x-1, y-1], [x , y-1], [x+1, y-1], 
+					 [x+1, y+1], [x, y+1],	[x-1, y+1], 
+					 [x-1, y], [x+1, y] ]
+
+					 # a = [-1,0,1].repeated_permutation(2).to_a.
+					 # a.map {|index| 
+					 # 	index[0]}
+
+					 # 	puts a.inspect
+
 		@pixels[y][x] = colour
 		adjacent.select { |pixel| (pixel[0] >= 0 && pixel[0] < @width) && (pixel[1] >= 0 && pixel[1] < @height) }.each do |pixel|
 			pixel_x = pixel[0]
