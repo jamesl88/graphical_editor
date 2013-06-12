@@ -7,7 +7,7 @@ class Image
 	end
 
 	def clear!		
-		@pixels = Array.new(@height) { Array.new(@width) { "O"} }
+		@pixels = Array.new(@height) { Array.new(@width) { "O" } }
 	end
 
 	def colour!(x, y, colour)
@@ -34,23 +34,12 @@ class Image
 	end
 
 	def recursive_fill(x, y, colour, original_colour)
-		# [-1,0,1].repeated_permutation(2).to_a
-
-		adjacent = [ [x-1, y-1], [x , y-1], [x+1, y-1], 
-					 [x+1, y+1], [x, y+1],	[x-1, y+1], 
-					 [x-1, y], [x+1, y] ]
-
-					 # a = [-1,0,1].repeated_permutation(2).to_a.
-					 # a.map {|index| 
-					 # 	index[0]}
-
-					 # 	puts a.inspect
-
+		adjacent = [ [x-1, y-1], [x , y-1], [x+1, y-1], [x+1, y], [x+1, y+1], [x, y+1], [x-1, y+1], [x-1, y] ]
 		@pixels[y][x] = colour
-		adjacent.select { |pixel| (pixel[0] >= 0 && pixel[0] < @width) && (pixel[1] >= 0 && pixel[1] < @height) }.each do |pixel|
+		adjacent.select { |pixel| pixel[0].between?(0,(@width-1)) && pixel[1].between?(0, 
+			(@height-1)) }.each { |pixel|
 			pixel_x = pixel[0]
 			pixel_y = pixel[1]
-			recursive_fill(pixel_x, pixel_y, colour, original_colour) if @pixels[pixel_y][pixel_x] == original_colour  
-		end	   
+			recursive_fill(pixel_x, pixel_y, colour, original_colour) if @pixels[pixel_y][pixel_x] == original_colour } 
 	end	
 end
