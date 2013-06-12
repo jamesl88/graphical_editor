@@ -1,0 +1,10 @@
+GEM
+  remote: http://www.rubygems.org/
+  specs:
+    highline (1.6.19)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  highline

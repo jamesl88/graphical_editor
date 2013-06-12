@@ -42,7 +42,6 @@ class Image
 		@pixels[y][x] = colour
 		adjacent(x, y).each { |pixel|
 			pixel_x, pixel_y = pixel[0], pixel[1]
-			recursive_fill(pixel_x, pixel_y, colour, orig_colour) if @pixels[pixel_y][pixel_x] == orig_colour 
-		} 
+			recursive_fill(pixel_x, pixel_y, colour, orig_colour) if @pixels[pixel_y][pixel_x] == orig_colour } 
 	end	
 end
