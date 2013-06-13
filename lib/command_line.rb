@@ -3,9 +3,9 @@ require_relative 'image'
 
 class CommandLine
 
-	def image
-		# puts "Please enter input in correct format I M N" unless @input.join(" ") == @input.join(" ")[/\A(I) (\d) (\d)\z/]
-		@new_image = Image.new(@input[1].to_i, @input[2].to_i)
+	def image(x, y)
+		# raise "Error" unless commands.join(" ") == commands.join(" ")[/\A(I) (\d) (\d)\z/]
+		@new_image = Image.new(x, y)
 	end
 
 	def show 
@@ -16,41 +16,58 @@ class CommandLine
 		@new_image.clear!
 	end	
 
-	def colour
-		@new_image.colour!(@input[1].to_i, @input[2].to_i, @input[3])
+	def colour(x, y, colour)
+		@new_image.colour!(x, y, colour)
 	end	
 
-	def horizontal
-		@new_image.vertical!(@input[1].to_i, @input[2].to_i, @input[3].to_i, @input[4])
+	def horizontal(x1, x2, y, colour)
+		@new_image.vertical!(x1, x2, y, colour)
 	end
 
-	def vertical
-		@new_image.horizontal!(@input[1].to_i, @input[2].to_i, @input[3].to_i, @input[4])
+	def vertical(x, y1, y2, colour)
+		@new_image.horizontal!(x, y1, y2, colour)
 	end
 		
-	def fill
-		@new_image.fill!(@input[1].to_i, @input[2].to_i, @input[3])
+	def fill(x, y, colour)
+		@new_image.fill!(x, y, colour)
 	end
-		
-	def run!
-		@input = nil
-		while @input != ["X"]
-			print "> "
-			@input = gets.chomp.split(" ")
 
-			case @input[0]
-			when "I" then image
+	def stop
+	 	puts "Have a nice day!"
+	 	exit 
+	end	
+
+	def input(commands)
+		case commands.first
+			when "I" then image(commands[1], commands[2])
 			when "C" then clear	
 			when "S" then show
-			when "L" then colour
-			when "V" then horizontal
-			when "H" then vertical
-			when "F" then fill
-			# else puts "Wrong input, you idiot!"
-			end
+			when "L" then colour(commands[1], commands[2], commands[3])
+			when "V" then horizontal(commands[1], commands[2], commands[3], commands[4])
+			when "H" then vertical(commands[1], commands[2], commands[3], commands[4])
+			when "F" then fill(commands[1], commands[2], commands[3])
+			when "X" then stop
+			# else puts "Wrongcommands, you idiot!"
+		end
+	end
+
+	def execute(commands)
+		begin
+			input(commands)
+		rescue
+			puts "Please enter commands in correct format"
+		end
+	end	
+		
+	def run!
+		while true
+			print "> "
+			commands = gets.chomp.split(" ")
+			commands.map! {|c| /^\d$/ =~ c ? c.to_i : c}			
+			execute commands
 		end
 	end
 
 end
 
-CommandLine.new.run!
+# CommandLine.new.run!

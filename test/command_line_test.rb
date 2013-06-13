@@ -1,30 +1,26 @@
-require 'minitest/autorun'
+require 'test/unit'
 require '../lib/image'
-require '../lib/command_line.rb'
+require '../lib/command_line'
+require 'mocha/setup'
 
-class CommandTest < MiniTest::Unit::TestCase
+class CommandTest < Test::Unit::TestCase
+
+	def setup
+		@command_line = CommandLine.new
+		
+	end
 
 	def test_can_exit_from_the_program
-		command_line = CommandLine.new
-		command_line.expect(:stop)
-		command_line.input('X')
-		command_line.verify		
+		# @command_line.expects(:stop).once
+		# @command_line.stubs(:run!).returns(:stop)
+		# @command_line.stubs(:gets).returns("X\n")
+		@command_line.expects(:stop).once
+		@command_line.execute(["X"])
 	end
 
 	def test_image_can_be_shown
-		image = Minitest::Mock.new
-		command_line = CommandLine.new(image)
-		image.expect(:show)
-		command_line.input("S")
-		image.verify
-	end
-
-	def test_the_repl
-		image = Minitest::Mock.new
-		command_line = CommandLine.new(image)
-		def command_line.gets; "X\n"; end
-		command_line.expect(:stop)
-		command_line.run!
+		skip
+		@command_line.expects(:show)
 	end
 
 end
