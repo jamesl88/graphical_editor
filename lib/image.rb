@@ -3,6 +3,11 @@ class Image
 	attr_accessor :width, :height, :pixels
 
 	def initialize(n, m)
+		begin
+			raise unless x <= 250 || y <= 250
+		rescue
+			puts "The image should be no bigger than 250x250 px" 
+		end
 		@width, @height = n, m; clear!
 	end
 

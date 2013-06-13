@@ -2,9 +2,9 @@
 require_relative 'image'
 
 class CommandLine
-
+	
 	def image(x, y)
-		# raise "Error" unless commands.join(" ") == commands.join(" ")[/\A(I) (\d) (\d)\z/]
+		raise unless @commands.join(" ")[/\A(I) (\d+) (\d+)\z/i]
 		@new_image = Image.new(x, y)
 	end
 
@@ -17,18 +17,22 @@ class CommandLine
 	end	
 
 	def colour(x, y, colour)
+		raise unless @commands.join(" ")[/\A(L) (\d+) (\d+) ([a-z])\z/i]
 		@new_image.colour!(x, y, colour)
 	end	
 
 	def horizontal(x1, x2, y, colour)
-		@new_image.vertical!(x1, x2, y, colour)
+		raise unless @commands.join(" ")[/\A(H) (\d+) (\d+) (\d+) ([a-z])\z/i]
+		@new_image.horizontal!(x1, x2, y, colour)
 	end
 
 	def vertical(x, y1, y2, colour)
-		@new_image.horizontal!(x, y1, y2, colour)
+		raise unless @commands.join(" ")[/\A(V) (\d+) (\d+) (\d+) ([a-z])\z/i]
+		@new_image.vertical!(x, y1, y2, colour)
 	end
 		
 	def fill(x, y, colour)
+		raise unless @commands.join(" ")[/\A(F) (\d+) (\d+) ([a-z])\z/i]
 		@new_image.fill!(x, y, colour)
 	end
 
@@ -43,11 +47,11 @@ class CommandLine
 			when "C" then clear	
 			when "S" then show
 			when "L" then colour(commands[1], commands[2], commands[3])
-			when "V" then horizontal(commands[1], commands[2], commands[3], commands[4])
-			when "H" then vertical(commands[1], commands[2], commands[3], commands[4])
+			when "V" then vertical(commands[1], commands[2], commands[3], commands[4])
+			when "H" then horizontal(commands[1], commands[2], commands[3], commands[4])
 			when "F" then fill(commands[1], commands[2], commands[3])
 			when "X" then stop
-			# else puts "Wrongcommands, you idiot!"
+			else puts "That is not a valid command"
 		end
 	end
 
@@ -61,13 +65,10 @@ class CommandLine
 		
 	def run!
 		while true
-			print "> "
-			commands = gets.chomp.split(" ")
-			commands.map! {|c| /^\d$/ =~ c ? c.to_i : c}			
-			execute commands
+			print "> "	
+			@commands = gets.chomp.upcase.split(" ")
+			@commands.map! {|c| /^\d+$/ =~ c ? c.to_i : c}		
+			execute @commands
 		end
 	end
-
 end
-
-# CommandLine.new.run!
