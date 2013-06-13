@@ -5,7 +5,7 @@ require '../lib/command_line.rb'
 class CommandTest < MiniTest::Unit::TestCase
 
 	def test_can_exit_from_the_program
-		command_line = CommandLine.new(Image.new)
+		command_line = CommandLine.new
 		command_line.expect(:stop)
 		command_line.input('X')
 		command_line.verify		
@@ -28,3 +28,4 @@ class CommandTest < MiniTest::Unit::TestCase
 	end
 
 end
+
