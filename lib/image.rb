@@ -4,7 +4,7 @@ class Image
 
 	def initialize(n, m)
 		begin
-			raise unless x <= 250 || y <= 250
+			raise unless n <= 250 && m <= 250
 		rescue
 			puts "The image should be no bigger than 250x250 px" 
 		end
