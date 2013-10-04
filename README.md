@@ -1,6 +1,6 @@
 Technical Test
 ==============
-This repo contains a coding response to a test set in 2013 by Evgeny Shadchnev at Makers Academy in London. The code contained in this repository was produced by Neil Atkinson and Liz Candler as part of a paired programming exercise at Makers Academy.
+This repo contains a coding response to a test set in 2013 by Evgeny Shadchnev at Makers Academy in London. The code contained in this repository was produced by James Lieu and Tom Wisniewski as part of a paired programming exercise at Makers Academy.
 
 Test Details
 ------------
@@ -10,12 +10,14 @@ Graphical editors allow users to edit images in the same way text editors let us
 Produce a program that simulates interactive graphical editor.
 
 Input
+-----
 
 The input consists of a line contianing a sequence of commands. Each command is represented by a single letter at the start of the line. Arguments to the comman are separated by spaces and follow the command character.
 
 Pixel co-ordinated are represented by a pair of integers: 1) a column number between 1 and M, and 2) a row number between 1 and N. Where 1 <= M <= 250 and 1 <= N <= 250. The origin sits in the upper-left of the table. Colours are specified by capital letters.
 
 Commands
+--------
 
 The editor supports 7 commands:
 
@@ -36,6 +38,7 @@ S. Show the contents of the current image.
 X. Terminate the session.
 
 Example
+--------
 
 In the example below, > denotes input, => denotes program output.
 
